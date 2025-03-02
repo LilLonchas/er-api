@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { AlumnoModule } from './alumno/alumno.module';
-import { ProfesorModule } from './profesor/profesor.module';
-import { PracticaModule } from './practica/practica.module';
-import { ExamenTeoricoModule } from './examen_teorico/examen_teorico.module';
-import { EvaluacionModule } from './evaluacion/evaluacion.module';
-import { DataSource } from 'typeorm';
+import { AlumnoModule } from './evaluacion/alumno/alumno.module';
+import { ExamenteoricoModule } from './evaluacion/examenteorico/examenteorico.module';
+import { PracticaModule } from './evaluacion/practica/practica.module';
+import { ProfesorModule } from './evaluacion/profesor/profesor.module';
+import { DisenaModule } from './evaluacion/disena/disena.module';
+import { RealizaModule } from './evaluacion/realiza/realiza.module';
+import { HaceModule } from './evaluacion/hace/hace.module';
 
 @Module({
   imports: [
@@ -15,21 +16,21 @@ import { DataSource } from 'typeorm';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
+      host: process.env.URL,
+      port: 3306,
+      username: process.env.USER,
+      password: process.env.PASS,
+      database: process.env.EVALUACION,
       autoLoadEntities: true,
       synchronize: true,
     }),
     AlumnoModule,
-    ProfesorModule,
+    ExamenteoricoModule,
     PracticaModule,
-    ExamenTeoricoModule,
-    EvaluacionModule,
+    ProfesorModule,
+    DisenaModule,
+    RealizaModule,
+    HaceModule
   ],
 })
-export class AppModule {
-  constructor(private dataSource: DataSource) {}
-}
+export class AppModule {}
